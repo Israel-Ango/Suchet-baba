@@ -11,18 +11,16 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --cream:       #f5f0e8;
-      --warm-white:  #faf7f2;
-      --sand:        #e8dfd0;
-      --terracotta:  #c1694f;
-      --rust:        #a0522d;
-      --deep-brown:  #2c1a0e;
-      --mid-brown:   #5c3d2e;
-      --warm-gray:   #8a7968;
-      --accent:      #d4956a;
+      --cream:      #f5f0e8;
+      --warm-white: #faf7f2;
+      --sand:       #e8dfd0;
+      --terracotta: #c1694f;
+      --rust:       #a0522d;
+      --deep-brown: #2c1a0e;
+      --mid-brown:  #5c3d2e;
+      --warm-gray:  #8a7968;
+      --accent:     #d4956a;
     }
-
-    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Inter', sans-serif;
@@ -30,6 +28,7 @@
       color: var(--deep-brown);
       font-weight: 300;
       letter-spacing: 0.01em;
+      overflow-x: hidden;
     }
 
     /* ─── NAV ─────────────────────────────────────────────── */
@@ -41,9 +40,15 @@
       justify-content: space-between;
       align-items: center;
       padding: 1.4rem 3rem;
-      background: rgba(250, 247, 242, 0.92);
-      backdrop-filter: blur(8px);
+      background: rgba(250, 247, 242, 0.95);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--sand);
+      transition: background 0.3s;
+    }
+
+    nav.over-hero {
+      background: transparent;
+      border-bottom-color: transparent;
     }
 
     nav .logo {
@@ -54,6 +59,7 @@
       text-transform: uppercase;
       color: var(--deep-brown);
       text-decoration: none;
+      cursor: pointer;
     }
 
     nav ul {
@@ -62,149 +68,107 @@
       gap: 2.5rem;
     }
 
-    nav ul a {
+    nav ul li a {
       text-decoration: none;
       font-size: 0.75rem;
       font-weight: 400;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--mid-brown);
-      transition: color 0.2s;
+      color: white;
+      cursor: pointer;
+      padding-bottom: 2px;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
     }
 
-    nav ul a:hover { color: var(--terracotta); }
-
-    /* ─── HERO ────────────────────────────────────────────── */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      padding-top: 80px;
+    nav ul li a:hover,
+    nav ul li a.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
     }
 
-    .hero-image {
-      background-color: var(--sand);
+    /* ─── HERO (LANDING) ──────────────────────────────────── */
+    #landing {
+      height: 100vh;
       position: relative;
       overflow: hidden;
-      min-height: 600px;
     }
 
-    .hero-image img {
+    .landing-photo {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      object-position: top center;
+    }
+
+    .landing-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center center;
+      background-color: #3b2010;
       display: block;
     }
 
-    .hero-image-placeholder {
-      width: 100%;
-      height: 100%;
+    .hero-overlay-text {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 4rem 4rem 3rem;
+      background: linear-gradient(to top, rgba(20,10,4,0.72) 0%, transparent 100%);
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      color: var(--warm-gray);
-      font-size: 0.8rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .hero-image-placeholder svg {
-      opacity: 0.3;
-      width: 60px;
-      height: 60px;
-    }
-
-    .hero-text {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 5rem 4rem 5rem 5rem;
-      background-color: var(--warm-white);
+      gap: 0.5rem;
     }
 
     .hero-eyebrow {
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: var(--terracotta);
-      margin-bottom: 1.5rem;
+      color: rgba(255,255,255,0.7);
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
     }
 
     .hero-name {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3rem, 5vw, 5.5rem);
+      font-size: clamp(3rem, 7vw, 6.5rem);
       font-weight: 300;
-      line-height: 1.05;
-      color: var(--deep-brown);
-      margin-bottom: 1.8rem;
-    }
-
-    .hero-name em {
-      font-style: italic;
-      color: var(--terracotta);
+      color: white;
+      line-height: 1;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     .hero-tagline {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
-      font-weight: 400;
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      font-weight: 300;
       font-style: italic;
-      color: var(--mid-brown);
-      line-height: 1.6;
-      margin-bottom: 2.5rem;
-      border-left: 2px solid var(--accent);
-      padding-left: 1.2rem;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      margin-top: 0.2rem;
     }
 
-    .hero-bio {
-      font-size: 0.9rem;
-      line-height: 1.85;
-      color: var(--mid-brown);
-      max-width: 44ch;
-      margin-bottom: 3rem;
+    /* ─── PANELS ──────────────────────────────────────────── */
+    .panel {
+      display: none;
+      min-height: calc(100vh - 80px);
+      margin-top: 80px;
+      animation: fadeIn 0.4s ease;
     }
 
-    .btn {
-      display: inline-block;
-      padding: 0.85rem 2.2rem;
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      text-decoration: none;
-      border: 1.5px solid var(--terracotta);
-      color: var(--terracotta);
-      transition: background 0.25s, color 0.25s;
+    .panel.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    .btn:hover {
-      background: var(--terracotta);
-      color: var(--warm-white);
-    }
-
-    .btn-filled {
-      background: var(--terracotta);
-      color: var(--warm-white);
-      margin-left: 1rem;
-    }
-
-    .btn-filled:hover {
-      background: var(--rust);
-      border-color: var(--rust);
-    }
-
-    /* ─── ABOUT ───────────────────────────────────────────── */
-    #about {
-      background-color: var(--cream);
-      padding: 8rem 3rem;
-    }
-
+    /* ─── SHARED SECTION STYLES ───────────────────────────── */
     .section-inner {
       max-width: 1100px;
       margin: 0 auto;
+      padding: 6rem 3rem;
     }
 
     .section-label {
@@ -225,6 +189,9 @@
       margin-bottom: 3.5rem;
     }
 
+    /* ─── ABOUT ───────────────────────────────────────────── */
+    #panel-about { background-color: var(--cream); }
+
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -239,10 +206,7 @@
       margin-bottom: 1.4rem;
     }
 
-    .about-text p strong {
-      color: var(--deep-brown);
-      font-weight: 500;
-    }
+    .about-text p strong { color: var(--deep-brown); font-weight: 500; }
 
     .stats-column {
       display: flex;
@@ -251,10 +215,7 @@
       padding-top: 0.5rem;
     }
 
-    .stat-item {
-      border-top: 1px solid var(--sand);
-      padding-top: 1.5rem;
-    }
+    .stat-item { border-top: 1px solid var(--sand); padding-top: 1.5rem; }
 
     .stat-number {
       font-family: 'Cormorant Garamond', serif;
@@ -272,119 +233,93 @@
       color: var(--warm-gray);
     }
 
-    /* ─── ARTS & VIBES ────────────────────────────────────── */
-    #arts-vibes {
-      background-color: var(--deep-brown);
-      color: var(--cream);
-      padding: 8rem 3rem;
+    /* ─── HONOURS ─────────────────────────────────────────── */
+    #panel-honours { background-color: var(--warm-white); }
+
+    .honours-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
     }
 
-    #arts-vibes .section-label { color: var(--accent); }
-
-    #arts-vibes .section-title { color: var(--cream); }
-
-    .av-grid {
+    .honour-item {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      margin-top: 3rem;
+      grid-template-columns: 100px 1fr;
+      gap: 2rem;
+      align-items: start;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--sand);
     }
 
-    .av-card {
-      background-color: rgba(255,255,255,0.04);
-      padding: 2.5rem 2rem;
-      border: 1px solid rgba(255,255,255,0.08);
-      transition: background 0.25s;
+    .honour-year {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: var(--terracotta);
     }
 
-    .av-card:hover { background-color: rgba(255,255,255,0.08); }
-
-    .av-card-icon {
-      width: 36px;
-      height: 36px;
-      margin-bottom: 1.5rem;
-      color: var(--accent);
+    .honour-body h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--deep-brown);
+      margin-bottom: 0.3rem;
     }
 
-    .av-card h3 {
+    .honour-body p {
+      font-size: 0.85rem;
+      color: var(--warm-gray);
+      line-height: 1.6;
+    }
+
+    /* ─── WRITING ─────────────────────────────────────────── */
+    #panel-writing { background-color: var(--cream); }
+
+    .writing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem;
+    }
+
+    .writing-card {
+      border-top: 2px solid var(--sand);
+      padding-top: 1.5rem;
+    }
+
+    .writing-card .tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+
+    .writing-card h3 {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.5rem;
       font-weight: 400;
-      color: var(--cream);
-      margin-bottom: 0.9rem;
+      color: var(--deep-brown);
+      line-height: 1.3;
+      margin-bottom: 0.8rem;
     }
 
-    .av-card p {
+    .writing-card p {
       font-size: 0.85rem;
       line-height: 1.8;
-      color: rgba(245,240,232,0.65);
-    }
-
-    .av-intro {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 5rem;
-      align-items: center;
-      margin-bottom: 4rem;
-    }
-
-    .av-intro-text p {
-      font-size: 0.92rem;
-      line-height: 1.9;
-      color: rgba(245,240,232,0.75);
-      margin-bottom: 1.2rem;
-    }
-
-    .av-quote {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.7rem;
-      font-weight: 300;
-      font-style: italic;
-      line-height: 1.5;
-      color: var(--accent);
-      border-left: 2px solid var(--accent);
-      padding-left: 1.5rem;
-    }
-
-    /* ─── PORTFOLIO ───────────────────────────────────────── */
-    #portfolio {
-      background-color: var(--warm-white);
-      padding: 8rem 3rem;
-    }
-
-    .portfolio-filter {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin-bottom: 3rem;
-    }
-
-    .filter-btn {
-      padding: 0.45rem 1.2rem;
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      border: 1px solid var(--sand);
-      background: transparent;
       color: var(--mid-brown);
-      cursor: pointer;
-      transition: all 0.2s;
     }
 
-    .filter-btn.active,
-    .filter-btn:hover {
-      background: var(--terracotta);
-      border-color: var(--terracotta);
-      color: white;
-    }
+    /* ─── ART ─────────────────────────────────────────────── */
+    #panel-art { background-color: var(--warm-white); }
 
-    .portfolio-grid {
+    .art-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 2px;
     }
 
-    .portfolio-item {
+    .art-item {
       position: relative;
       overflow: hidden;
       aspect-ratio: 4/3;
@@ -392,13 +327,10 @@
       cursor: pointer;
     }
 
-    .portfolio-item.tall { aspect-ratio: 3/4; }
-    .portfolio-item.wide {
-      grid-column: span 2;
-      aspect-ratio: 16/9;
-    }
+    .art-item.tall { aspect-ratio: 3/4; }
+    .art-item.wide { grid-column: span 2; aspect-ratio: 16/9; }
 
-    .portfolio-item img {
+    .art-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -406,9 +338,9 @@
       display: block;
     }
 
-    .portfolio-item:hover img { transform: scale(1.04); }
+    .art-item:hover img { transform: scale(1.04); }
 
-    .portfolio-overlay {
+    .art-overlay {
       position: absolute;
       inset: 0;
       background: linear-gradient(to top, rgba(44,26,14,0.85) 0%, transparent 55%);
@@ -420,9 +352,9 @@
       padding: 1.5rem;
     }
 
-    .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+    .art-item:hover .art-overlay { opacity: 1; }
 
-    .portfolio-overlay h4 {
+    .art-overlay h4 {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.2rem;
       font-weight: 400;
@@ -430,21 +362,20 @@
       margin-bottom: 0.25rem;
     }
 
-    .portfolio-overlay span {
+    .art-overlay span {
       font-size: 0.68rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--accent);
     }
 
-    /* placeholder tiles */
-    .portfolio-placeholder {
+    .art-placeholder {
       width: 100%;
       height: 100%;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
       gap: 0.7rem;
       color: var(--warm-gray);
       font-size: 0.7rem;
@@ -452,62 +383,92 @@
       text-transform: uppercase;
     }
 
-    .portfolio-placeholder svg {
-      opacity: 0.25;
-      width: 32px;
-      height: 32px;
+    .art-placeholder svg { opacity: 0.25; width: 32px; height: 32px; }
+
+    /* ─── FESTIVAL ────────────────────────────────────────── */
+    #panel-festival { background-color: var(--deep-brown); color: var(--cream); }
+
+    #panel-festival .section-label { color: var(--accent); }
+    #panel-festival .section-title { color: var(--cream); }
+
+    .festival-intro {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      margin-bottom: 4rem;
     }
 
-    /* ─── PRESS / FEATURES ────────────────────────────────── */
-    #press {
-      background-color: var(--cream);
-      padding: 5rem 3rem;
+    .festival-intro-text p {
+      font-size: 0.92rem;
+      line-height: 1.9;
+      color: rgba(245,240,232,0.75);
+      margin-bottom: 1.2rem;
     }
 
-    .press-marquee-wrap {
-      overflow: hidden;
-      border-top: 1px solid var(--sand);
-      border-bottom: 1px solid var(--sand);
-      padding: 1.5rem 0;
-      margin-top: 2.5rem;
-    }
-
-    .press-marquee {
-      display: flex;
-      gap: 4rem;
-      white-space: nowrap;
-      animation: marquee 25s linear infinite;
-    }
-
-    .press-marquee span {
+    .festival-quote {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
+      font-size: 1.7rem;
+      font-weight: 300;
       font-style: italic;
-      color: var(--warm-gray);
-      flex-shrink: 0;
+      line-height: 1.5;
+      color: var(--accent);
+      border-left: 2px solid var(--accent);
+      padding-left: 1.5rem;
     }
 
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
+    .festival-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .festival-card {
+      background-color: rgba(255,255,255,0.04);
+      padding: 2.5rem 2rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.25s;
+    }
+
+    .festival-card:hover { background-color: rgba(255,255,255,0.08); }
+
+    .festival-card-icon {
+      width: 36px; height: 36px;
+      margin-bottom: 1.5rem;
+      color: var(--accent);
+    }
+
+    .festival-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--cream);
+      margin-bottom: 0.9rem;
+    }
+
+    .festival-card p {
+      font-size: 0.85rem;
+      line-height: 1.8;
+      color: rgba(245,240,232,0.65);
     }
 
     /* ─── CONTACT ─────────────────────────────────────────── */
-    #contact {
+    #panel-contact {
       background-color: var(--terracotta);
       color: var(--warm-white);
-      padding: 8rem 3rem;
+    }
+
+    #panel-contact .section-label { color: rgba(255,255,255,0.6); }
+    #panel-contact .section-title { color: var(--warm-white); margin-bottom: 1.5rem; }
+
+    .contact-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 6rem 3rem;
       text-align: center;
     }
 
-    #contact .section-label { color: rgba(255,255,255,0.6); }
-
-    #contact .section-title {
-      color: var(--warm-white);
-      margin-bottom: 1.5rem;
-    }
-
-    #contact p {
+    .contact-inner p {
       font-size: 0.95rem;
       line-height: 1.8;
       color: rgba(255,255,255,0.8);
@@ -515,22 +476,30 @@
       margin: 0 auto 3rem;
     }
 
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2.2rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,0.6);
+      color: white;
+      transition: background 0.25s, color 0.25s, border-color 0.25s;
+    }
+
+    .btn:hover {
+      background: white;
+      color: var(--terracotta);
+      border-color: white;
+    }
+
     .contact-links {
       display: flex;
       justify-content: center;
       gap: 1.2rem;
       flex-wrap: wrap;
-    }
-
-    .contact-links .btn {
-      border-color: rgba(255,255,255,0.6);
-      color: white;
-    }
-
-    .contact-links .btn:hover {
-      background: white;
-      color: var(--terracotta);
-      border-color: white;
     }
 
     .social-row {
@@ -563,79 +532,58 @@
       letter-spacing: 0.08em;
     }
 
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
-    }
+    footer a { color: var(--accent); text-decoration: none; }
 
     /* ─── RESPONSIVE ──────────────────────────────────────── */
     @media (max-width: 900px) {
       nav { padding: 1.2rem 1.5rem; }
-      nav ul { gap: 1.5rem; }
-
-      .hero { grid-template-columns: 1fr; }
-      .hero-image { min-height: 55vw; order: -1; }
-      .hero-text { padding: 3rem 1.8rem; }
-
-      .about-grid,
-      .av-intro { grid-template-columns: 1fr; gap: 2.5rem; }
-
-      .av-grid { grid-template-columns: 1fr; }
-
-      .portfolio-grid { grid-template-columns: 1fr 1fr; }
-      .portfolio-item.wide { grid-column: span 2; }
-
-      #about, #arts-vibes, #portfolio, #contact { padding: 5rem 1.5rem; }
+      nav ul { gap: 1.2rem; }
+      .about-grid, .festival-intro { grid-template-columns: 1fr; gap: 2.5rem; }
+      .festival-grid { grid-template-columns: 1fr; }
+      .art-grid { grid-template-columns: 1fr 1fr; }
+      .art-item.wide { grid-column: span 2; }
+      .writing-grid { grid-template-columns: 1fr; }
+      .section-inner { padding: 4rem 1.5rem; }
     }
 
     @media (max-width: 600px) {
-      nav ul { display: none; }
-      .portfolio-grid { grid-template-columns: 1fr; }
-      .portfolio-item.wide { grid-column: span 1; aspect-ratio: 4/3; }
+      nav ul { gap: 0.8rem; }
+      nav ul li a { font-size: 0.65rem; }
+      .art-grid { grid-template-columns: 1fr; }
+      .art-item.wide { grid-column: span 1; aspect-ratio: 4/3; }
+      .honour-item { grid-template-columns: 60px 1fr; gap: 1rem; }
     }
   </style>
 </head>
 <body>
 
   <!-- NAV -->
-  <nav>
-    <a href="#" class="logo">Suchet</a>
+  <nav id="main-nav" class="over-hero">
+    <span class="logo" onclick="showLanding()">Suchet</span>
     <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#arts-vibes">Arts &amp; Vibes</a></li>
-      <li><a href="#portfolio">Portfolio</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#" data-panel="about">About</a></li>
+      <li><a href="#" data-panel="honours">Honours</a></li>
+      <li><a href="#" data-panel="writing">Writing</a></li>
+      <li><a href="#" data-panel="art">Art</a></li>
+      <li><a href="#" data-panel="festival">Festival</a></li>
+      <li><a href="#" data-panel="contact">Contact</a></li>
     </ul>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-image" id="hero-img-wrap">
+  <!-- LANDING -->
+  <section id="landing">
+    <div class="landing-photo">
       <img src="Suchet.jpeg" alt="Suchet" />
     </div>
-
-    <div class="hero-text">
-      <p class="hero-eyebrow">Founder · Creative Director · Community Builder</p>
-      <h1 class="hero-name"><em>Suchet</em></h1>
-      <p class="hero-tagline">
-        Championing African creativity — one artist, one story, one stage at a time.
-      </p>
-      <p class="hero-bio">
-        Suchet is a passionate creative force and the visionary founder of
-        <strong>Arts and Vibes</strong> — Nigeria's thriving platform for art, culture, and
-        community. With an unwavering belief in the power of artistic expression to
-        transform lives and shift narratives, she has spent years building spaces
-        where creatives don't just survive — they flourish.
-      </p>
-      <div>
-        <a href="#portfolio" class="btn">View Work</a>
-        <a href="#contact" class="btn btn-filled">Get in Touch</a>
-      </div>
+    <div class="hero-overlay-text">
+      <span class="hero-eyebrow">Founder · Arts and Vibes</span>
+      <div class="hero-name">Suchet</div>
+      <div class="hero-tagline">a visionary</div>
     </div>
   </section>
 
-  <!-- ABOUT -->
-  <section id="about">
+  <!-- ── ABOUT ───────────────────────────────────────────── -->
+  <div id="panel-about" class="panel">
     <div class="section-inner">
       <span class="section-label">The Story</span>
       <h2 class="section-title">A life devoted<br />to art and its people</h2>
@@ -688,16 +636,157 @@
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- ARTS & VIBES -->
-  <section id="arts-vibes">
+  <!-- ── HONOURS ─────────────────────────────────────────── -->
+  <div id="panel-honours" class="panel">
+    <div class="section-inner">
+      <span class="section-label">Recognition</span>
+      <h2 class="section-title">Honours &amp; Awards</h2>
+
+      <div class="honours-list">
+        <div class="honour-item">
+          <div class="honour-year">2024</div>
+          <div class="honour-body">
+            <h3>Founder, Arts and Vibes</h3>
+            <p>Building Nigeria's foremost creative community platform — recognised for impact in arts, culture, and youth empowerment.</p>
+          </div>
+        </div>
+        <div class="honour-item">
+          <div class="honour-year">2023</div>
+          <div class="honour-body">
+            <h3>Labari Prize for Poetry — Curator</h3>
+            <p>Founded and curated the annual literary prize celebrating Northern Nigerian identity and postcolonial expression.</p>
+          </div>
+        </div>
+        <div class="honour-item">
+          <div class="honour-year">2022</div>
+          <div class="honour-body">
+            <h3>Community Builder — Arts &amp; Culture</h3>
+            <p>Recognised for growing a creative community of 60+ artists and reaching over 200,000 impressions across platforms.</p>
+          </div>
+        </div>
+        <div class="honour-item">
+          <div class="honour-year">2021</div>
+          <div class="honour-body">
+            <h3>Founded Arts and Vibes</h3>
+            <p>Launched the platform with a mission to create the largest community of creatives in Northern Nigeria.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── WRITING ─────────────────────────────────────────── -->
+  <div id="panel-writing" class="panel">
+    <div class="section-inner">
+      <span class="section-label">Words</span>
+      <h2 class="section-title">Writing</h2>
+
+      <div class="writing-grid">
+        <div class="writing-card">
+          <span class="tag">Essay</span>
+          <h3>Art as a Language of Resistance</h3>
+          <p>On why creative expression in Northern Nigeria is not a luxury but a lifeline — and how community changes everything.</p>
+        </div>
+        <div class="writing-card">
+          <span class="tag">Reflection</span>
+          <h3>What It Means to Build a Home for Creatives</h3>
+          <p>A personal account of the early days of Arts and Vibes — the doubt, the fire, and the people who made it real.</p>
+        </div>
+        <div class="writing-card">
+          <span class="tag">Feature</span>
+          <h3>The Labari Prize: Why Poetry Matters Now</h3>
+          <p>An exploration of identity, postcolonialism, and the urgent need for spaces where African stories speak for themselves.</p>
+        </div>
+        <div class="writing-card">
+          <span class="tag">Commentary</span>
+          <h3>Investing in the Next Generation</h3>
+          <p>Thoughts on youth empowerment, mentorship, and what it truly takes to hand young artists the stage they deserve.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ART ─────────────────────────────────────────────── -->
+  <div id="panel-art" class="panel">
+    <div class="section-inner">
+      <span class="section-label">Selected Work</span>
+      <h2 class="section-title">Art</h2>
+
+      <div class="art-grid">
+        <div class="art-item wide">
+          <div class="art-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <span>Add Image</span>
+          </div>
+          <div class="art-overlay"><h4>Arts and Vibes Annual Festival</h4><span>Events</span></div>
+        </div>
+        <div class="art-item tall">
+          <div class="art-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <span>Add Image</span>
+          </div>
+          <div class="art-overlay"><h4>Labari Prize — Poetry Night</h4><span>Exhibition</span></div>
+        </div>
+        <div class="art-item">
+          <div class="art-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <span>Add Image</span>
+          </div>
+          <div class="art-overlay"><h4>Youth Art Workshop</h4><span>Workshops</span></div>
+        </div>
+        <div class="art-item">
+          <div class="art-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <span>Add Image</span>
+          </div>
+          <div class="art-overlay"><h4>Creative Discourse Panel</h4><span>Events</span></div>
+        </div>
+        <div class="art-item">
+          <div class="art-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <span>Add Image</span>
+          </div>
+          <div class="art-overlay"><h4>Visual Arts Exhibition</h4><span>Exhibition</span></div>
+        </div>
+        <div class="art-item wide">
+          <div class="art-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <span>Add Image</span>
+          </div>
+          <div class="art-overlay"><h4>Arts &amp; Vibes x Community Campaign</h4><span>Campaigns</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FESTIVAL ────────────────────────────────────────── -->
+  <div id="panel-festival" class="panel">
     <div class="section-inner">
       <span class="section-label">Arts and Vibes</span>
       <h2 class="section-title">Building the largest community<br />of creatives in Northern Nigeria</h2>
 
-      <div class="av-intro">
-        <div class="av-intro-text">
+      <div class="festival-intro">
+        <div class="festival-intro-text">
           <p>
             Arts and Vibes is more than a brand — it is a living ecosystem where poets,
             painters, performers, and storytellers find not just an audience, but each
@@ -712,233 +801,65 @@
             daring, most honest, most necessary work.
           </p>
         </div>
-        <blockquote class="av-quote">
+        <blockquote class="festival-quote">
           "We are creating the largest community of creatives looking for an outlet to
           create, collaborate, and have creative discourse."
         </blockquote>
       </div>
 
-      <div class="av-grid">
-        <div class="av-card">
-          <svg class="av-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+      <div class="festival-grid">
+        <div class="festival-card">
+          <svg class="festival-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
             <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
           </svg>
           <h3>Community Events</h3>
-          <p>
-            Carefully curated gatherings — exhibitions, open mics, panel discussions —
-            that turn strangers into collaborators and audiences into movements.
-          </p>
+          <p>Curated gatherings — exhibitions, open mics, panels — that turn strangers into collaborators and audiences into movements.</p>
         </div>
-
-        <div class="av-card">
-          <svg class="av-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+        <div class="festival-card">
+          <svg class="festival-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
             <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
           </svg>
           <h3>Workshops &amp; Training</h3>
-          <p>
-            Hands-on skill-building programmes for emerging artists and youth, giving
-            them the craft, confidence, and connections they need to thrive.
-          </p>
+          <p>Hands-on skill-building programmes for emerging artists and youth, giving them craft, confidence, and connections.</p>
         </div>
-
-        <div class="av-card">
-          <svg class="av-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+        <div class="festival-card">
+          <svg class="festival-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
             <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
           </svg>
           <h3>The Labari Prize for Poetry</h3>
-          <p>
-            An annual literary competition celebrating voices that explore identity,
-            postcolonialism, and what it means to be Northern Nigerian and African today.
-          </p>
+          <p>An annual literary competition celebrating voices that explore identity and what it means to be Northern Nigerian today.</p>
         </div>
-
-        <div class="av-card">
-          <svg class="av-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+        <div class="festival-card">
+          <svg class="festival-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
             <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
             <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
           </svg>
           <h3>Artist Collaboration</h3>
-          <p>
-            A robust network of 60+ artists across disciplines, fostering partnerships
-            that push creative boundaries and amplify African stories.
-          </p>
+          <p>A robust network of 60+ artists across disciplines, fostering partnerships that push creative boundaries.</p>
         </div>
-
-        <div class="av-card">
-          <svg class="av-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+        <div class="festival-card">
+          <svg class="festival-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
             <polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
           </svg>
           <h3>Visual &amp; Performing Arts</h3>
-          <p>
-            Championing the full spectrum of creative expression — from canvas to stage —
-            with platforms that make Northern Nigerian artistry visible to the world.
-          </p>
+          <p>Championing the full spectrum of creative expression — from canvas to stage — with platforms that amplify African artistry.</p>
         </div>
-
-        <div class="av-card">
-          <svg class="av-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+        <div class="festival-card">
+          <svg class="festival-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
             <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
             <circle cx="9" cy="7" r="4"/>
             <path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
           </svg>
           <h3>Youth Empowerment</h3>
-          <p>
-            Investing in the next generation of African creators — providing mentorship,
-            resources, and stages to those who have the talent but not yet the platform.
-          </p>
+          <p>Investing in the next generation of African creators — mentorship, resources, and stages for those who have talent but not yet a platform.</p>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- PORTFOLIO -->
-  <section id="portfolio">
-    <div class="section-inner">
-      <span class="section-label">Selected Work</span>
-      <h2 class="section-title">Portfolio</h2>
-
-      <div class="portfolio-filter">
-        <button class="filter-btn active">All</button>
-        <button class="filter-btn">Events</button>
-        <button class="filter-btn">Exhibitions</button>
-        <button class="filter-btn">Workshops</button>
-        <button class="filter-btn">Campaigns</button>
-      </div>
-
-      <!--
-        TO ADD IMAGES: replace each <div class="portfolio-placeholder">...</div>
-        inside .portfolio-item with:  <img src="your-image.jpg" alt="description" />
-      -->
-      <div class="portfolio-grid">
-
-        <div class="portfolio-item wide" data-title="Arts and Vibes Annual Festival" data-cat="Events">
-          <div class="portfolio-placeholder">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
-              <polyline points="21 15 16 10 5 21"/>
-            </svg>
-            <span>Event Photo</span>
-          </div>
-          <div class="portfolio-overlay">
-            <h4>Arts and Vibes Annual Festival</h4>
-            <span>Events</span>
-          </div>
-        </div>
-
-        <div class="portfolio-item tall" data-title="Labari Prize — Poetry Night" data-cat="Exhibitions">
-          <div class="portfolio-placeholder">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
-              <polyline points="21 15 16 10 5 21"/>
-            </svg>
-            <span>Event Photo</span>
-          </div>
-          <div class="portfolio-overlay">
-            <h4>Labari Prize — Poetry Night</h4>
-            <span>Exhibition</span>
-          </div>
-        </div>
-
-        <div class="portfolio-item" data-title="Youth Art Workshop" data-cat="Workshops">
-          <div class="portfolio-placeholder">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
-              <polyline points="21 15 16 10 5 21"/>
-            </svg>
-            <span>Workshop Photo</span>
-          </div>
-          <div class="portfolio-overlay">
-            <h4>Youth Art Workshop</h4>
-            <span>Workshops</span>
-          </div>
-        </div>
-
-        <div class="portfolio-item" data-title="Creative Discourse Panel" data-cat="Events">
-          <div class="portfolio-placeholder">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
-              <polyline points="21 15 16 10 5 21"/>
-            </svg>
-            <span>Panel Photo</span>
-          </div>
-          <div class="portfolio-overlay">
-            <h4>Creative Discourse Panel</h4>
-            <span>Events</span>
-          </div>
-        </div>
-
-        <div class="portfolio-item" data-title="Visual Arts Exhibition" data-cat="Exhibitions">
-          <div class="portfolio-placeholder">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
-              <polyline points="21 15 16 10 5 21"/>
-            </svg>
-            <span>Exhibition Photo</span>
-          </div>
-          <div class="portfolio-overlay">
-            <h4>Visual Arts Exhibition</h4>
-            <span>Exhibition</span>
-          </div>
-        </div>
-
-        <div class="portfolio-item wide" data-title="Arts &amp; Vibes x Community Campaign" data-cat="Campaigns">
-          <div class="portfolio-placeholder">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
-              <polyline points="21 15 16 10 5 21"/>
-            </svg>
-            <span>Campaign Photo</span>
-          </div>
-          <div class="portfolio-overlay">
-            <h4>Arts &amp; Vibes x Community Campaign</h4>
-            <span>Campaigns</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- PRESS -->
-  <section id="press">
-    <div class="section-inner">
-      <span class="section-label">Recognition</span>
-      <h2 class="section-title" style="font-size:2rem;">Featured &amp; Recognised By</h2>
-    </div>
-    <div class="press-marquee-wrap">
-      <div class="press-marquee">
-        <span>Arts and Vibes Community</span>
-        <span>·</span>
-        <span>Labari Prize for Poetry</span>
-        <span>·</span>
-        <span>Northern Nigerian Creative Scene</span>
-        <span>·</span>
-        <span>African Arts Advocacy</span>
-        <span>·</span>
-        <span>Youth Empowerment in the Arts</span>
-        <span>·</span>
-        <span>Postcolonial Storytelling</span>
-        <span>·</span>
-        <!-- duplicate for seamless loop -->
-        <span>Arts and Vibes Community</span>
-        <span>·</span>
-        <span>Labari Prize for Poetry</span>
-        <span>·</span>
-        <span>Northern Nigerian Creative Scene</span>
-        <span>·</span>
-        <span>African Arts Advocacy</span>
-        <span>·</span>
-        <span>Youth Empowerment in the Arts</span>
-        <span>·</span>
-        <span>Postcolonial Storytelling</span>
-        <span>·</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="section-inner" style="text-align:center;">
+  <!-- ── CONTACT ─────────────────────────────────────────── -->
+  <div id="panel-contact" class="panel">
+    <div class="contact-inner">
       <span class="section-label">Let's Connect</span>
       <h2 class="section-title">
         Have a project, collaboration,<br />or story to share?
@@ -949,15 +870,9 @@
         is always open.
       </p>
       <div class="contact-links">
-        <a href="https://www.instagram.com/suchett_" target="_blank" rel="noopener" class="btn">
-          @suchett_ on Instagram
-        </a>
-        <a href="https://www.instagram.com/theartsandvibes/" target="_blank" rel="noopener" class="btn">
-          @theartsandvibes
-        </a>
-        <a href="https://www.artsandvibes.com" target="_blank" rel="noopener" class="btn">
-          artsandvibes.com
-        </a>
+        <a href="https://www.instagram.com/suchett_" target="_blank" rel="noopener" class="btn">@suchett_ on Instagram</a>
+        <a href="https://www.instagram.com/theartsandvibes/" target="_blank" rel="noopener" class="btn">@theartsandvibes</a>
+        <a href="https://www.artsandvibes.com" target="_blank" rel="noopener" class="btn">artsandvibes.com</a>
       </div>
       <div class="social-row">
         <a href="https://www.instagram.com/suchett_" target="_blank" rel="noopener">Instagram (Personal)</a>
@@ -965,33 +880,50 @@
         <a href="https://www.artsandvibes.com" target="_blank" rel="noopener">Website</a>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- FOOTER -->
-  <footer>
+  <footer id="site-footer" style="display:none;">
     <span>© 2025 Suchet. All rights reserved.</span>
     <span>Founder of <a href="https://www.artsandvibes.com" target="_blank" rel="noopener">Arts and Vibes</a></span>
   </footer>
 
-  <!-- PORTFOLIO FILTER SCRIPT -->
   <script>
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const items = document.querySelectorAll('.portfolio-item');
+    const nav = document.getElementById('main-nav');
+    const landing = document.getElementById('landing');
+    const footer = document.getElementById('site-footer');
+    const panels = document.querySelectorAll('.panel');
+    const navLinks = document.querySelectorAll('nav ul li a[data-panel]');
 
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+    function showLanding() {
+      panels.forEach(p => p.classList.remove('active'));
+      navLinks.forEach(a => a.classList.remove('active'));
+      landing.style.display = 'block';
+      footer.style.display = 'none';
+      nav.classList.add('over-hero');
+      window.scrollTo({ top: 0 });
+    }
 
-        const cat = btn.textContent.trim();
-        items.forEach(item => {
-          const itemCat = item.dataset.cat || '';
-          if (cat === 'All' || itemCat === cat) {
-            item.style.display = 'block';
-          } else {
-            item.style.display = 'none';
-          }
-        });
+    function showPanel(id) {
+      landing.style.display = 'none';
+      panels.forEach(p => p.classList.remove('active'));
+      navLinks.forEach(a => a.classList.remove('active'));
+
+      const panel = document.getElementById('panel-' + id);
+      if (panel) panel.classList.add('active');
+
+      const link = document.querySelector(`nav ul li a[data-panel="${id}"]`);
+      if (link) link.classList.add('active');
+
+      footer.style.display = 'flex';
+      nav.classList.remove('over-hero');
+      window.scrollTo({ top: 0 });
+    }
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        showPanel(link.dataset.panel);
       });
     });
   </script>

@@ -539,7 +539,7 @@
 
     /* ─── HAMBURGER ───────────────────────────────────────── */
     .hamburger {
-      display: none;
+      display: flex;
       flex-direction: column;
       gap: 5px;
       background: none;
@@ -556,44 +556,35 @@
       transition: all 0.3s;
     }
 
-    .mobile-menu {
+    .dropdown-menu {
       display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      right: 2rem;
       background: var(--deep-brown);
-      z-index: 200;
+      min-width: 180px;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 2.5rem;
+      z-index: 300;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
     }
 
-    .mobile-menu.open { display: flex; }
+    .dropdown-menu.open { display: flex; }
 
-    .mobile-menu a {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.2rem;
-      font-weight: 300;
+    .dropdown-menu a {
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
       color: var(--cream);
       text-decoration: none;
-      letter-spacing: 0.1em;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
       cursor: pointer;
-      transition: color 0.2s;
+      transition: background 0.2s, color 0.2s;
     }
 
-    .mobile-menu a:hover { color: var(--accent); }
-
-    .mobile-menu-close {
-      position: absolute;
-      top: 1.5rem;
-      right: 1.5rem;
-      background: none;
-      border: none;
-      color: var(--cream);
-      font-size: 1.8rem;
-      cursor: pointer;
-      line-height: 1;
-    }
+    .dropdown-menu a:last-child { border-bottom: none; }
+    .dropdown-menu a:hover { background: rgba(255,255,255,0.07); color: var(--accent); }
 
     /* ─── RESPONSIVE ──────────────────────────────────────── */
     @media (max-width: 900px) {
@@ -607,9 +598,9 @@
       .section-inner { padding: 4rem 1.5rem; }
     }
 
+    nav ul { display: none; }
+
     @media (max-width: 650px) {
-      nav ul { display: none; }
-      .hamburger { display: flex; }
 
       .landing-photo img {
         object-fit: cover;
@@ -638,21 +629,19 @@
       <li><a href="#" data-panel="festival">Festival</a></li>
       <li><a href="#" data-panel="contact">Contact</a></li>
     </ul>
-    <button class="hamburger" onclick="document.getElementById('mobile-menu').classList.add('open')" aria-label="Open menu">
+    <button class="hamburger" onclick="toggleDropdown(event)" aria-label="Open menu">
       <span></span><span></span><span></span>
     </button>
-  </nav>
 
-  <!-- MOBILE MENU -->
-  <div id="mobile-menu" class="mobile-menu">
-    <button class="mobile-menu-close" onclick="document.getElementById('mobile-menu').classList.remove('open')">&times;</button>
-    <a onclick="showPanel('about');document.getElementById('mobile-menu').classList.remove('open')">About</a>
-    <a onclick="showPanel('honours');document.getElementById('mobile-menu').classList.remove('open')">Honours</a>
-    <a onclick="showPanel('writing');document.getElementById('mobile-menu').classList.remove('open')">Writing</a>
-    <a onclick="showPanel('art');document.getElementById('mobile-menu').classList.remove('open')">Art</a>
-    <a onclick="showPanel('festival');document.getElementById('mobile-menu').classList.remove('open')">Festival</a>
-    <a onclick="showPanel('contact');document.getElementById('mobile-menu').classList.remove('open')">Contact</a>
-  </div>
+    <div id="dropdown-menu" class="dropdown-menu">
+      <a onclick="showPanel('about');closeDropdown()">About</a>
+      <a onclick="showPanel('honours');closeDropdown()">Honours</a>
+      <a onclick="showPanel('writing');closeDropdown()">Writing</a>
+      <a onclick="showPanel('art');closeDropdown()">Art</a>
+      <a onclick="showPanel('festival');closeDropdown()">Festival</a>
+      <a onclick="showPanel('contact');closeDropdown()">Contact</a>
+    </div>
+  </nav>
 
   <!-- LANDING -->
   <section id="landing">
@@ -972,43 +961,40 @@
   </footer>
 
   <script>
-    const nav = document.getElementById('main-nav');
     const landing = document.getElementById('landing');
     const footer = document.getElementById('site-footer');
     const panels = document.querySelectorAll('.panel');
-    const navLinks = document.querySelectorAll('nav ul li a[data-panel]');
+    const dropdown = document.getElementById('dropdown-menu');
+
+    function toggleDropdown(e) {
+      e.stopPropagation();
+      const isOpen = dropdown.style.display === 'flex';
+      dropdown.style.display = isOpen ? 'none' : 'flex';
+    }
+
+    function closeDropdown() {
+      dropdown.style.display = 'none';
+    }
+
+    document.addEventListener('click', e => {
+      if (!e.target.closest('#main-nav')) closeDropdown();
+    });
 
     function showLanding() {
       panels.forEach(p => p.classList.remove('active'));
-      navLinks.forEach(a => a.classList.remove('active'));
       landing.style.display = 'block';
       footer.style.display = 'none';
-      nav.classList.add('over-hero');
       window.scrollTo({ top: 0 });
     }
 
     function showPanel(id) {
       landing.style.display = 'none';
       panels.forEach(p => p.classList.remove('active'));
-      navLinks.forEach(a => a.classList.remove('active'));
-
       const panel = document.getElementById('panel-' + id);
       if (panel) panel.classList.add('active');
-
-      const link = document.querySelector(`nav ul li a[data-panel="${id}"]`);
-      if (link) link.classList.add('active');
-
       footer.style.display = 'flex';
-      nav.classList.remove('over-hero');
       window.scrollTo({ top: 0 });
     }
-
-    navLinks.forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        showPanel(link.dataset.panel);
-      });
-    });
   </script>
 
 </body>

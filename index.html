@@ -29,7 +29,10 @@
       font-weight: 300;
       letter-spacing: 0.01em;
       overflow-x: hidden;
+      max-width: 100vw;
     }
+
+    html { overflow-x: hidden; }
 
     /* ─── NAV ─────────────────────────────────────────────── */
     nav {
@@ -40,9 +43,8 @@
       justify-content: space-between;
       align-items: center;
       padding: 1.4rem 3rem;
-      background: rgba(250, 247, 242, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--sand);
+      background: transparent;
+      border-bottom: none;
       transition: background 0.3s;
     }
 
@@ -90,8 +92,10 @@
     /* ─── HERO (LANDING) ──────────────────────────────────── */
     #landing {
       height: 100vh;
+      width: 100%;
       position: relative;
       overflow: hidden;
+      background-color: #3b2010;
     }
 
     .landing-photo {
@@ -104,7 +108,6 @@
       height: 100%;
       object-fit: contain;
       object-position: center center;
-      background-color: #3b2010;
       display: block;
     }
 
@@ -534,6 +537,64 @@
 
     footer a { color: var(--accent); text-decoration: none; }
 
+    /* ─── HAMBURGER ───────────────────────────────────────── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: white;
+      transition: all 0.3s;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--deep-brown);
+      z-index: 200;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+
+    .mobile-menu.open { display: flex; }
+
+    .mobile-menu a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--cream);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .mobile-menu a:hover { color: var(--accent); }
+
+    .mobile-menu-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: var(--cream);
+      font-size: 1.8rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+
     /* ─── RESPONSIVE ──────────────────────────────────────── */
     @media (max-width: 900px) {
       nav { padding: 1.2rem 1.5rem; }
@@ -546,9 +607,18 @@
       .section-inner { padding: 4rem 1.5rem; }
     }
 
-    @media (max-width: 600px) {
-      nav ul { gap: 0.8rem; }
-      nav ul li a { font-size: 0.65rem; }
+    @media (max-width: 650px) {
+      nav ul { display: none; }
+      .hamburger { display: flex; }
+
+      .landing-photo img {
+        object-fit: cover;
+        background-color: transparent;
+      }
+
+      .hero-overlay-text { padding: 2.5rem 1.5rem 2rem; }
+      .hero-name { font-size: 3rem; }
+
       .art-grid { grid-template-columns: 1fr; }
       .art-item.wide { grid-column: span 1; aspect-ratio: 4/3; }
       .honour-item { grid-template-columns: 60px 1fr; gap: 1rem; }
@@ -558,7 +628,7 @@
 <body>
 
   <!-- NAV -->
-  <nav id="main-nav" class="over-hero">
+  <nav id="main-nav">
     <span class="logo" onclick="showLanding()">Suchet</span>
     <ul>
       <li><a href="#" data-panel="about">About</a></li>
@@ -568,7 +638,21 @@
       <li><a href="#" data-panel="festival">Festival</a></li>
       <li><a href="#" data-panel="contact">Contact</a></li>
     </ul>
+    <button class="hamburger" onclick="document.getElementById('mobile-menu').classList.add('open')" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <!-- MOBILE MENU -->
+  <div id="mobile-menu" class="mobile-menu">
+    <button class="mobile-menu-close" onclick="document.getElementById('mobile-menu').classList.remove('open')">&times;</button>
+    <a onclick="showPanel('about');document.getElementById('mobile-menu').classList.remove('open')">About</a>
+    <a onclick="showPanel('honours');document.getElementById('mobile-menu').classList.remove('open')">Honours</a>
+    <a onclick="showPanel('writing');document.getElementById('mobile-menu').classList.remove('open')">Writing</a>
+    <a onclick="showPanel('art');document.getElementById('mobile-menu').classList.remove('open')">Art</a>
+    <a onclick="showPanel('festival');document.getElementById('mobile-menu').classList.remove('open')">Festival</a>
+    <a onclick="showPanel('contact');document.getElementById('mobile-menu').classList.remove('open')">Contact</a>
+  </div>
 
   <!-- LANDING -->
   <section id="landing">
@@ -576,7 +660,6 @@
       <img src="Suchet.jpeg" alt="Suchet" />
     </div>
     <div class="hero-overlay-text">
-      <span class="hero-eyebrow">Founder · Arts and Vibes</span>
       <div class="hero-name">Suchet</div>
       <div class="hero-tagline">a visionary</div>
     </div>

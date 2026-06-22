@@ -116,42 +116,39 @@
 
     /* ─── LANDING ─────────────────────────────────────────── */
     #landing {
-      min-height: 100vh;
+      height: 100vh;
       background: var(--white);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding-top: 4.5rem;
-      padding-bottom: 2.5rem;
+      gap: 1.4rem;
+      padding: 5rem 2.5rem 2.5rem;
       box-sizing: border-box;
-      overflow: hidden;
     }
 
     .landing-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.6rem;
-      width: min(520px, calc(100vw - 3rem));
-      margin-left: auto;
-      margin-right: auto;
+      display: contents;
     }
 
     .landing-photo {
-      width: 100%;
+      flex: 0 1 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .landing-photo img {
-      width: 100%;
-      height: auto;
       display: block;
+      width: 70vw;
+      max-width: 420px;
+      max-height: 62vh;
+      height: auto;
+      object-fit: contain;
     }
 
     .hero-overlay {
       text-align: center;
-      width: 100%;
-      padding: 0 1.5rem;
     }
 
     .hero-name {
@@ -547,7 +544,7 @@
   <section id="landing">
     <div class="landing-content">
       <div class="landing-photo">
-        <img src="Suu.jpeg" alt="Suchet" />
+        <img src="New.JPG" alt="Suchet" />
       </div>
       <div class="hero-overlay">
         <div class="hero-tagline">A creative visionary who likes to play</div>

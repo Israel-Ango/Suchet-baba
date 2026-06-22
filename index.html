@@ -66,6 +66,9 @@
     nav.solid .logo { color: var(--brown); }
     nav.solid .hamburger span { background: var(--brown); }
 
+    /* mobile: brown nav over white background */
+    .hamburger span { background: var(--brown); }
+
     .hamburger {
       display: flex;
       flex-direction: column;
@@ -114,25 +117,15 @@
     .dropdown-menu a:last-child { border-bottom: none; }
     .dropdown-menu a:hover { background: var(--light-gray); color: var(--brown); }
 
-    /* ─── LANDING ─────────────────────────────────────────── */
+    /* ─── LANDING — mobile first (stacked) ───────────────── */
     #landing {
-      min-height: 100vh;
       background: var(--white);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding-top: 4rem;
-      padding-bottom: 2rem;
-      box-sizing: border-box;
+      padding-top: 4.5rem;
     }
 
     .landing-content {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 1.4rem;
-      width: 100%;
     }
 
     .landing-photo {
@@ -146,8 +139,50 @@
     }
 
     .hero-overlay {
-      text-align: center;
-      padding: 0 1.5rem;
+      padding: 1.6rem 1.5rem 2rem;
+      text-align: left;
+    }
+
+    /* ─── LANDING — desktop (full-screen hero) ────────────── */
+    @media (min-width: 768px) {
+      nav .logo { color: var(--white); }
+      .hamburger span { background: var(--white); }
+      nav.solid .logo { color: var(--brown); }
+      nav.solid .hamburger span { background: var(--brown); }
+
+      #landing {
+        height: 100vh;
+        padding-top: 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .landing-content {
+        position: absolute;
+        inset: 0;
+      }
+
+      .landing-photo {
+        width: 100%;
+        height: 100%;
+      }
+
+      .landing-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+      }
+
+      .hero-overlay {
+        position: absolute;
+        bottom: 3rem;
+        left: 4rem;
+        padding: 0;
+        text-align: left;
+        color: var(--white);
+        text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+      }
     }
 
     .hero-name {

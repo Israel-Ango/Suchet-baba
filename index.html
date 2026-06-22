@@ -120,12 +120,18 @@
     /* ─── LANDING — mobile first (stacked) ───────────────── */
     #landing {
       background: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       padding-top: 4.5rem;
+      box-sizing: border-box;
     }
 
     .landing-content {
       display: flex;
       flex-direction: column;
+      width: 100%;
     }
 
     .landing-photo {

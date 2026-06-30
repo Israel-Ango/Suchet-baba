@@ -263,41 +263,26 @@
     #panel-writing { background: var(--off-white); }
 
     .writing-list {
-      list-style: none;
+      list-style: disc;
+      padding-left: 1.2rem;
       display: flex;
       flex-direction: column;
+      gap: 1.1rem;
     }
 
     .writing-list li {
-      padding: 1.4rem 0;
-      border-bottom: 1px solid var(--sand);
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 1rem;
-      align-items: baseline;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.95rem;
+      line-height: 1.5;
     }
 
-    .writing-list li:first-child { border-top: 1px solid var(--sand); }
-
-    .writing-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem;
-      font-style: italic;
-      color: var(--brown);
+    .writing-list li a {
+      color: var(--dark-brown);
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
 
-    .writing-meta {
-      font-size: 0.82rem;
-      color: var(--warm-gray);
-      white-space: nowrap;
-      text-align: right;
-    }
-
-    .writing-pub {
-      font-size: 0.82rem;
-      color: var(--mid-brown);
-      margin-top: 0.2rem;
-    }
+    .writing-list li a:hover { color: var(--brown); }
 
     /* ─── ART ─────────────────────────────────────────────── */
     #panel-art { background: var(--white); }
@@ -316,32 +301,85 @@
     .art-section-label:first-of-type { margin-top: 0; }
 
     .group-shows {
-      list-style: none;
-      margin-bottom: 3rem;
+      list-style: disc;
+      padding-left: 1.2rem;
+      margin-bottom: 2rem;
     }
 
     .group-shows li {
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--sand);
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.95rem;
+      padding: 0.4rem 0;
+      color: var(--dark-brown);
+    }
+
+    /* ─── GALLERY BLOCK ───────────────────────────────────── */
+    .gallery-block {
+      background: #0f1c2e;
+      padding: 2.5rem 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .gallery-main {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .gallery-photo-large img,
+    .gallery-photo-small img,
+    .gallery-painting img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-photo-large {
+      aspect-ratio: 4/3;
+      background: #1a2535;
+      overflow: hidden;
+    }
+
+    .gallery-side {
       display: flex;
-      justify-content: space-between;
-      align-items: baseline;
+      flex-direction: column;
       gap: 1rem;
     }
 
-    .group-shows li:first-child { border-top: 1px solid var(--sand); }
-
-    .show-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.05rem;
-      font-style: italic;
-      color: var(--brown);
+    .gallery-caption {
+      color: var(--white);
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.8rem;
+      line-height: 1.6;
     }
 
-    .show-venue {
-      font-size: 0.82rem;
-      color: var(--warm-gray);
-      text-align: right;
+    .gallery-caption .gallery-show-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-style: italic;
+      margin-bottom: 0.3rem;
+    }
+
+    .gallery-photo-small {
+      flex: 1;
+      background: #1a2535;
+      overflow: hidden;
+      min-height: 120px;
+    }
+
+    .gallery-painting {
+      aspect-ratio: 3/4;
+      max-width: 320px;
+      background: #1a2535;
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .gallery-main { grid-template-columns: 1fr; }
+      .gallery-painting { max-width: 100%; aspect-ratio: 4/3; }
     }
 
     .artwork-grid {
@@ -353,6 +391,14 @@
     .artwork-item {
       display: flex;
       flex-direction: column;
+    }
+
+    .artwork-item img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      display: block;
+      margin-bottom: 0.8rem;
     }
 
     .artwork-canvas {
@@ -621,41 +667,11 @@
       <h1 class="page-title italic">Writing</h1>
       <div class="divider"></div>
       <ul class="writing-list">
-        <li>
-          <div>
-            <div class="writing-title">"Ungodly."</div>
-            <div class="writing-pub">Afritondo</div>
-          </div>
-          <div class="writing-meta">July 20, 2024</div>
-        </li>
-        <li>
-          <div>
-            <div class="writing-title">"Waiting."</div>
-            <div class="writing-pub">African Writer Magazine</div>
-          </div>
-          <div class="writing-meta">March 30, 2024</div>
-        </li>
-        <li>
-          <div>
-            <div class="writing-title">"Everyone is a Story."</div>
-            <div class="writing-pub">Brittle Paper</div>
-          </div>
-          <div class="writing-meta">September 28, 2022</div>
-        </li>
-        <li>
-          <div>
-            <div class="writing-title">"When Grief Sleep."</div>
-            <div class="writing-pub">Kalahari Review</div>
-          </div>
-          <div class="writing-meta">August 18, 2021</div>
-        </li>
-        <li>
-          <div>
-            <div class="writing-title">"How to be a Lecturer in Nigerian Universities."</div>
-            <div class="writing-pub">Punocracy</div>
-          </div>
-          <div class="writing-meta">January 31, 2021</div>
-        </li>
+        <li><a href="#" target="_blank">"Ungodly." Afritondo, July 20, 2024</a></li>
+        <li><a href="#" target="_blank">"Waiting." African Writer Magazine, March 30, 2024</a></li>
+        <li><a href="#" target="_blank">"Everyone is a Story." Brittle Paper, September 28, 2022</a></li>
+        <li><a href="#" target="_blank">"When Grief Sleep." Kalahari Review, August 18, 2021</a></li>
+        <li><a href="#" target="_blank">"How to be a lecturer in Nigerian Universities." Punocracy, January 31, 2021</a></li>
       </ul>
     </div>
   </div>
@@ -668,61 +684,74 @@
 
       <span class="art-section-label">Group Shows</span>
       <ul class="group-shows">
-        <li>
-          <span class="show-name">Young, Fresh, 'N New</span>
-          <span class="show-venue">Wunika Mukan Gallery &mdash; 2026</span>
-        </li>
-        <li>
-          <span class="show-name">The Artist Commune</span>
-          <span class="show-venue">2025</span>
-        </li>
+        <li>Young Fresh N New &ndash; Wunika Mukan Gallery, 2026</li>
+        <li>The Artist Commune, 2025</li>
       </ul>
+    </div>
 
+    <!-- Dark gallery block -->
+    <div class="gallery-block">
+      <div class="gallery-main">
+        <div class="gallery-photo-large">
+          <img src="ARTZ/Young Fresh N New - Installation 1.jpg" alt="Young, Fresh, 'N New — installation view" />
+        </div>
+        <div class="gallery-side">
+          <div class="gallery-caption">
+            <p class="gallery-show-title">Young, Fresh, 'N New</p>
+            <p>Wunika Mukan Gallery</p>
+            <p>2026</p>
+          </div>
+          <div class="gallery-photo-small">
+            <img src="ARTZ/Young Fresh N New - Installation 2.jpg" alt="Installation view 2" />
+          </div>
+        </div>
+      </div>
+      <div class="gallery-painting">
+        <img src="ARTZ/Young Fresh N New - Painting.jpg" alt="Painting" />
+      </div>
+    </div>
+
+    <div class="section-inner">
       <span class="art-section-label">Selected Works</span>
       <div class="artwork-grid">
         <div class="artwork-item">
-          <div class="artwork-canvas">Image</div>
+          <img src="ARTZ/Mother, This Is Who I Am.jpg" alt="Mother, This Is Who I Am" />
           <div class="artwork-title">Mother, This Is Who I Am</div>
-          <div class="artwork-details">Acrylic on canvas<br />36 × 45 inches, 2025</div>
+          <div class="artwork-details">Acrylic on canvas · 2025</div>
         </div>
         <div class="artwork-item">
-          <div class="artwork-canvas">Image</div>
+          <img src="ARTZ/Grey Days.jpg" alt="Grey Days" />
           <div class="artwork-title">Grey Days</div>
-          <div class="artwork-details">Acrylic on canvas<br />36 × 45 inches, 2025</div>
+          <div class="artwork-details">Acrylic on canvas · 2025</div>
         </div>
         <div class="artwork-item">
-          <div class="artwork-canvas">Image</div>
+          <img src="ARTZ/Dem No Dey Love for Lagos.jpg" alt="Dem No Dey Love for Lagos" />
           <div class="artwork-title">Dem No Dey Love for Lagos</div>
-          <div class="artwork-details">Acrylic on canvas<br />11.7 × 16.5 inches, 2025</div>
+          <div class="artwork-details">Acrylic on canvas · 2025</div>
         </div>
         <div class="artwork-item">
-          <div class="artwork-canvas">Image</div>
+          <img src="ARTZ/Do You Even Like Me.jpg" alt="Do You Even Like Me?" />
           <div class="artwork-title">Do You Even Like Me?</div>
-          <div class="artwork-details">Acrylic on canvas<br />11.7 × 16.5 inches, 2026</div>
+          <div class="artwork-details">Acrylic on canvas · 2026</div>
         </div>
         <div class="artwork-item">
-          <div class="artwork-canvas">Image</div>
+          <img src="ARTZ/Patience Grows.jpg" alt="Patience Grows" />
           <div class="artwork-title">Patience Grows</div>
-          <div class="artwork-details">Acrylic on canvas<br />11.7 × 16.5 inches, 2025</div>
+          <div class="artwork-details">Acrylic on canvas · 2025</div>
         </div>
         <div class="artwork-item">
-          <div class="artwork-canvas">Image</div>
+          <img src="ARTZ/Corporate Baddie.jpg" alt="Corporate Baddie" />
           <div class="artwork-title">Corporate Baddie</div>
-          <div class="artwork-details">Acrylic on canvas<br />11.7 × 16.5 inches, 2025</div>
+          <div class="artwork-details">Acrylic on canvas · 2025</div>
         </div>
         <div class="artwork-item">
-          <div class="artwork-canvas">Image</div>
+          <img src="ARTZ/Divine Feminine.jpg" alt="Divine Feminine" />
           <div class="artwork-title">Divine Feminine</div>
-          <div class="artwork-details">Acrylic on canvas<br />11.7 × 16.5 inches, 2025</div>
-        </div>
-        <div class="artwork-item">
-          <div class="artwork-canvas">Image</div>
-          <div class="artwork-title">Not Your F***ing Saviour</div>
-          <div class="artwork-details">Acrylic on canvas<br />11.7 × 16.5 inches, 2025</div>
+          <div class="artwork-details">Acrylic on canvas · 2025</div>
         </div>
       </div>
-    </div>
-  </div>
+    </div><!-- /section-inner -->
+  </div><!-- /panel-art -->
 
   <!-- FESTIVAL -->
   <div id="panel-festival" class="panel">

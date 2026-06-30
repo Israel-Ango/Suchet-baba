@@ -399,6 +399,57 @@
       object-fit: cover;
       display: block;
       margin-bottom: 0.8rem;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .artwork-item img:hover { opacity: 0.85; }
+
+    /* ─── LIGHTBOX ────────────────────────────────────────── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(10, 8, 6, 0.92);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 2rem;
+      box-sizing: border-box;
+      cursor: zoom-out;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 80vh;
+      object-fit: contain;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      cursor: default;
+    }
+
+    .lightbox-caption {
+      color: var(--white);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      margin-top: 1.2rem;
+      text-align: center;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 2.5rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0.5rem;
     }
 
     .artwork-canvas {
@@ -715,42 +766,49 @@
       <span class="art-section-label">Selected Works</span>
       <div class="artwork-grid">
         <div class="artwork-item">
-          <img src="ARTZ/Mother, This Is Who I Am.jpg" alt="Mother, This Is Who I Am" />
+          <img src="ARTZ/Mother, This Is Who I Am.jpg" alt="Mother, This Is Who I Am" onclick="openLightbox(this.src, 'Mother, This Is Who I Am')" />
           <div class="artwork-title">Mother, This Is Who I Am</div>
           <div class="artwork-details">Acrylic on canvas · 2025</div>
         </div>
         <div class="artwork-item">
-          <img src="ARTZ/Grey Days.jpg" alt="Grey Days" />
+          <img src="ARTZ/Grey Days.jpg" alt="Grey Days" onclick="openLightbox(this.src, 'Grey Days')" />
           <div class="artwork-title">Grey Days</div>
           <div class="artwork-details">Acrylic on canvas · 2025</div>
         </div>
         <div class="artwork-item">
-          <img src="ARTZ/Dem No Dey Love for Lagos.jpg" alt="Dem No Dey Love for Lagos" />
+          <img src="ARTZ/Dem No Dey Love for Lagos.jpg" alt="Dem No Dey Love for Lagos" onclick="openLightbox(this.src, 'Dem No Dey Love for Lagos')" />
           <div class="artwork-title">Dem No Dey Love for Lagos</div>
           <div class="artwork-details">Acrylic on canvas · 2025</div>
         </div>
         <div class="artwork-item">
-          <img src="ARTZ/Do You Even Like Me.jpg" alt="Do You Even Like Me?" />
+          <img src="ARTZ/Do You Even Like Me.jpg" alt="Do You Even Like Me?" onclick="openLightbox(this.src, 'Do You Even Like Me?')" />
           <div class="artwork-title">Do You Even Like Me?</div>
           <div class="artwork-details">Acrylic on canvas · 2026</div>
         </div>
         <div class="artwork-item">
-          <img src="ARTZ/Patience Grows.jpg" alt="Patience Grows" />
+          <img src="ARTZ/Patience Grows.jpg" alt="Patience Grows" onclick="openLightbox(this.src, 'Patience Grows')" />
           <div class="artwork-title">Patience Grows</div>
           <div class="artwork-details">Acrylic on canvas · 2025</div>
         </div>
         <div class="artwork-item">
-          <img src="ARTZ/Corporate Baddie.jpg" alt="Corporate Baddie" />
+          <img src="ARTZ/Corporate Baddie.jpg" alt="Corporate Baddie" onclick="openLightbox(this.src, 'Corporate Baddie')" />
           <div class="artwork-title">Corporate Baddie</div>
           <div class="artwork-details">Acrylic on canvas · 2025</div>
         </div>
         <div class="artwork-item">
-          <img src="ARTZ/Divine Feminine.jpg" alt="Divine Feminine" />
+          <img src="ARTZ/Divine Feminine.jpg" alt="Divine Feminine" onclick="openLightbox(this.src, 'Divine Feminine')" />
           <div class="artwork-title">Divine Feminine</div>
           <div class="artwork-details">Acrylic on canvas · 2025</div>
         </div>
       </div>
     </div><!-- /section-inner -->
+
+    <!-- LIGHTBOX -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+      <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+      <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()" />
+      <div id="lightbox-caption" class="lightbox-caption"></div>
+    </div>
   </div><!-- /panel-art -->
 
   <!-- FESTIVAL -->
@@ -898,6 +956,17 @@
 
     function closeDropdown() {
       dropdown.style.display = 'none';
+    }
+
+    function openLightbox(src, caption) {
+      const lb = document.getElementById('lightbox');
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox-caption').textContent = caption;
+      lb.classList.add('open');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
     }
 
     document.addEventListener('click', () => closeDropdown());
